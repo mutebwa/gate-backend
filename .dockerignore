@@ -1,0 +1,22 @@
+# Ignore development files
+.env
+.env.local
+*.log
+.DS_Store
+
+# Ignore build artifacts
+gatekeeper-server
+*.exe
+*.test
+
+# Ignore git
+.git
+.gitignore
+
+# Ignore documentation
+*.md
+README.md
+
+# Ignore test files
+*_test.go
+test_api.sh
