@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: gatekeeper-api
+    env: docker
+    region: oregon
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FIREBASE_PROJECT_ID
+        value: gatekeeper-e1209
+      - key: FIREBASE_CREDENTIALS_PATH
+        value: ./serviceAccountKey.json
+      - key: SERVER_PORT
+        value: 8080
+      - key: SERVER_ENVIRONMENT
+        value: production
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+    healthCheckPath: /health
