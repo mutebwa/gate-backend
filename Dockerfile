@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.24-alpine AS builder
+FROM golang:1.25-alpine3.21 AS builder
 
 WORKDIR /app
 
@@ -24,8 +24,9 @@ WORKDIR /root/
 # Copy the binary from builder
 COPY --from=builder /app/server .
 
-# Copy service account key (needed for Firestore)
-COPY --from=builder /app/serviceAccountKey.json .
+# Copy entrypoint script
+COPY --from=builder /app/entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
 # Expose port
 EXPOSE 8080
@@ -33,5 +34,5 @@ EXPOSE 8080
 # Set environment to production
 ENV GIN_MODE=release
 
-# Run the server
-CMD ["./server"]
+# Run the server via entrypoint
+CMD ["./entrypoint.sh"]
